@@ -149,8 +149,7 @@ class ApiServices {
 
   async deleteComment(postId, commentId) {
     const { data } = await axios.delete(
-      import.meta.env.VITE_BASE_URL +
-        "/posts/" +
+      import.meta.env.VITE_BASE_URL + "/posts/" +
         postId +
         "/comments/" +
         commentId,
@@ -165,8 +164,7 @@ class ApiServices {
 
   async updateComment(postId, commentId, formData) {
     const { data } = await axios.put(
-      import.meta.env.VITE_BASE_URL +
-        "/posts/" +
+      import.meta.env.VITE_BASE_URL + "/posts/" +
         postId +
         "/comments/" +
         commentId,
