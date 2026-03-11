@@ -1,0 +1,50 @@
+@import "tailwindcss";
+@plugin './hero.js';
+@source '../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+    h1 {
+        @apply font-bold text-4xl;
+    }
+
+    h2 {
+        @apply font-bold text-3xl;
+    }
+
+    h3 {
+        @apply font-bold text-2xl;
+    }
+
+    h4 {
+        @apply font-semibold text-xl;
+    }
+
+    h5 {
+        @apply font-semibold text-medium;
+    }
+
+    button {
+        @apply cursor-pointer
+    }
+}
+
+@theme {
+    --color-purple-50: #f5f6fe;
+    --color-purple-75: #eeeffc;
+    --color-purple-100: #e6e8fe;
+    --color-purple-200: #daddfd;
+    --color-purple-300: #cdd2fc;
+    --color-purple-400: #c0c7fb;
+    --color-purple-500: #b2bcfa;
+    --color-purple-600: #929acc;
+
+    --color-text-dark:#565a75;
+    --color-text-light: #73799f;
+
+    --color-active: #7686ed;
+}
+
+::selection {
+    @apply bg-active text-white;
+}
