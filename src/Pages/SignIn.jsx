@@ -20,12 +20,7 @@ export default function SignIn() {
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   const { handleSubmit, register, formState: { errors } } = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      email: "aya30@gmail.com",
-      password: "Aya123456!",
-    }
-
+    resolver: zodResolver(schema)
   })
 
   async function signIn(loginData) {

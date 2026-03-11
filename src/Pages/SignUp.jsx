@@ -19,15 +19,7 @@ export default function SignUp() {
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   const { handleSubmit, register, formState: { errors } } = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      name: "Aya",
-      email: "aya30@gmail.com",
-      password: "Aya123456!",
-      rePassword: "Aya123456!",
-      dateOfBirth: "2001-11-19",
-      gender: "female"
-    }
+    resolver: zodResolver(schema)
   })
 
   async function signUp(registerData) {
