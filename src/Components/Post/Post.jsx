@@ -11,7 +11,7 @@ import { queryClient } from "../../App";
 
 export default function Post({ post, comments }) {
 
-    const [loading, setLoading] = useState(false)
+    const [loadingComment, setLoadingComment] = useState(null)
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [isInEditMode, setIsInEditMode] = useState(false)
     const [postBody, setPostBody] = useState(post.body)
@@ -25,12 +25,14 @@ export default function Post({ post, comments }) {
     }
 
     async function deleteComment(commentId) {
-        setLoading(true)
+        setLoadingComment(commentId)
         const response = await apiServices.deleteComment(post._id, commentId)
         if (response.success) {
             queryClient.invalidateQueries(["posts"])
+            queryClient.invalidateQueries(["post", post._id])
+            queryClient.invalidateQueries(["post-comments", post._id])
         }
-        setLoading(false)
+        setLoadingComment(null)
     }
 
     async function deletePost() {
@@ -62,9 +64,9 @@ export default function Post({ post, comments }) {
 
             <div className="pb-5">
                 {
-                    comments ? comments.map((comment) => <Comment key={comment._id} comment={comment} deleteComment={deleteComment} postCreatorId={post.user._id} loading={loading} />)
+                    comments ? comments.map((comment) => <Comment key={comment._id} comment={comment} deleteComment={deleteComment} postCreatorId={post.user._id} loadingComment={loadingComment} />)
                         :
-                        post.topComment && <Comment comment={post.topComment} deleteComment={deleteComment} postCreatorId={post.user._id} loading={loading} />
+                        post.topComment && <Comment comment={post.topComment} deleteComment={deleteComment} postCreatorId={post.user._id} loadingComment={loadingComment} />
                 }
             </div>
 

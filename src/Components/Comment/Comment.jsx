@@ -6,7 +6,7 @@ import { apiServices } from "../../Services/Api";
 import { Button } from "@heroui/react";
 import { queryClient } from "../../App";
 
-export default function Comment({ comment, deleteComment, postCreatorId, loading }) {
+export default function Comment({ comment, deleteComment, postCreatorId, loadingComment }) {
 
     const [time, setTime] = useState(timeAgo(comment.createdAt));
     const { userData } = useContext(authContext)
@@ -22,6 +22,8 @@ export default function Comment({ comment, deleteComment, postCreatorId, loading
         await apiServices.updateComment(comment.post, comment._id, formData)
 
         await queryClient.invalidateQueries(["posts"])
+        await queryClient.invalidateQueries(["post-comments", comment.post])
+        await queryClient.invalidateQueries(["post", comment.post])
         setIsInEditMode(false)
         setIsUpdating(false)
     }
@@ -76,7 +78,7 @@ export default function Comment({ comment, deleteComment, postCreatorId, loading
                     </button>}
                     {(userData?._id == comment.commentCreator._id || userData._id == postCreatorId) && <button onClick={() => deleteComment(comment._id)} className="py-2 px-2 font-medium hover:bg-purple-50 rounded-lg text-small text-purple-600">
                         {
-                            loading ? < div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-purple-600"></div>
+                            loadingComment == comment._id ? < div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-purple-600"></div>
                                 :
                                 "Delete"
                         }
